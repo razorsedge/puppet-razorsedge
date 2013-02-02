@@ -7,7 +7,7 @@ develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-
 Introduction
 ------------
 
-This module mimics the razorsedge-release RPM from [RazorsEdge Installation Page](http://rpm.razorsedge.org/). The same repos are enabled/disabled and the GPG key is imported. In the end you will end up with the RazorsEdge repos configured. The work is heavily modeled on (read: stolen from) Mike Stahnke’s EPEL module.
+This module mimics the razorsedge-release RPM from the [Razor's Edge RPM Repository](http://rpm.razorsedge.org/). The same repos are enabled/disabled and the GPG key is imported. In the end you will end up with the RazorsEdge repos configured. The work is heavily modeled on (read: stolen from) Mike Stahnke’s EPEL module.
 
 Actions:
 
