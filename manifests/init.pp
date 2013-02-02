@@ -32,6 +32,8 @@
 #
 # === Requires:
 #
+#  Define['epel::rpm_gpg_key']
+#
 # === Sample Usage:
 #
 #  class { razorsedge: }
@@ -99,9 +101,9 @@ class razorsedge (
       source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
     }
 
-#    epel::rpm_gpg_key{ 'RE':
-#      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-#    }
+    epel::rpm_gpg_key { 'RE':
+      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    }
   } elsif $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
     yumrepo { 'RE':
       descr          => 'RazorsEdge RPM Repository',
@@ -137,11 +139,11 @@ class razorsedge (
       source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
     }
 
-#    epel::rpm_gpg_key{ 'RE':
-#      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-#    }
+    epel::rpm_gpg_key { 'RE':
+      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    }
   } else {
-      notice ("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")
+      notice("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")
   }
 
 }

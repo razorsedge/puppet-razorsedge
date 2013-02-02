@@ -1,5 +1,5 @@
-razorsedge Module
-===============
+Configure RazorsEdge Repository
+===============================
 
 master branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=master)](http://travis-ci.org/razorsedge/puppet-razorsedge)
 develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-razorsedge)
@@ -7,30 +7,46 @@ develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-
 Introduction
 ------------
 
-This module ....
+This module mimics the razorsedge-release RPM from [RazorsEdge Installation Page](http://rpm.razorsedge.org/). The same repos are enabled/disabled and the GPG key is imported. In the end you will end up with the RazorsEdge repos configured. The work is heavily modeled on (read: stolen from) Mike Stahnke’s EPEL module.
 
 Actions:
 
-* None
+* The following Repos will be setup and enabled by default:
+
+    RE
+
+* Other repositories that will setup but disabled (as per the razorsedge-release setup):
+
+    RE-testing
 
 OS Support:
 
-* RedHat family - tested on CentOS 5.5+ and CentOS 6.2+
-* SuSE family   - presently unsupported (patches welcome)
-* Debian family - presently unsupported (patches welcome)
+* RedHat family - tested on CentOS 5.9 and CentOS 6.3
 
 Class documentation is available via puppetdoc.
 
 Examples
 --------
 
-    include 'razorsedge'
+```puppet
+include 'razorsedge'
+```
 
+```puppet
+class { 'razorsedge':
+  ensure         => 'present',
+  priority       => '50',
+  protect        => '0',
+  proxy          => 'absent',
+  proxy_username => 'absent',
+  proxy_password => 'absent',
+}
+```
 
 Notes
 -----
 
-* None
+* Supports Top Scope variables (i.e. via Dashboard) and Parameterized Classes.
 
 Issues
 ------

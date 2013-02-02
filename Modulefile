@@ -4,8 +4,6 @@ author 'razorsedge'
 license 'Apache License, Version 2.0'
 project_page 'https://github.com/razorsedge/puppet-razorsedge'
 source 'git://github.com/razorsedge/puppet-razorsedge.git'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-
-## Add dependencies, if any:
-#dependency 'puppetlabs/stdlib', '>=2.1.0'
+summary 'Configure the RazorsEdge Repository'
+description 'This module mimics the razorsedge-release RPM. The same repos are enabled/disabled and the GPG key is imported. In the end you will end up with the RazorsEdge repos configured.'
+dependency 'stahnma/epel', '>=0.0.3'
