@@ -21,7 +21,7 @@ Actions:
 
 OS Support:
 
-* RedHat family - tested on CentOS 5.9 and CentOS 6.3
+* RedHat family - tested on Fedora 16, CentOS 5.9, and CentOS 6.3
 
 Class documentation is available via puppetdoc.
 
