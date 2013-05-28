@@ -1,5 +1,5 @@
-Configure RazorsEdge Repository
-===============================
+Install the RazorsEdge YUM Repository
+=====================================
 
 master branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=master)](http://travis-ci.org/razorsedge/puppet-razorsedge)
 develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-razorsedge)
@@ -11,13 +11,10 @@ This module mimics the razorsedge-release RPM from the [Razor's Edge RPM Reposit
 
 Actions:
 
-* The following Repos will be setup and enabled by default:
-
-    RE
-
-* Other repositories that will setup but disabled (as per the razorsedge-release setup):
-
-    RE-testing
+* The following Repos will be installed and enabled by default:
+  * RE
+* Other repositories that will installed but disabled (as per the razorsedge-release setup):
+  * RE-testing
 
 OS Support:
 
@@ -28,20 +25,21 @@ Class documentation is available via puppetdoc.
 Examples
 --------
 
-```puppet
-include 'razorsedge'
-```
+Simple usage:
 
-```puppet
-class { 'razorsedge':
-  ensure         => 'present',
-  priority       => '50',
-  protect        => '0',
-  proxy          => 'absent',
-  proxy_username => 'absent',
-  proxy_password => 'absent',
-}
-```
+    include 'razorsedge'
+
+Customized usage:
+
+    class { 'razorsedge':
+      ensure         => 'present',
+      priority       => '50',
+      protect        => '0',
+      proxy          => 'absent',
+      proxy_username => 'absent',
+      proxy_password => 'absent',
+    }
+
 
 Notes
 -----
