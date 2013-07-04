@@ -1,5 +1,5 @@
-Install the RazorsEdge YUM Repository
-=====================================
+Puppet RazorsEdge YUM Repository Module
+=======================================
 
 master branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=master)](http://travis-ci.org/razorsedge/puppet-razorsedge)
 develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-razorsedge)
