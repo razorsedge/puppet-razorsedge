@@ -1,5 +1,5 @@
 fixtures:
   repositories:
-    epel: "git://github.com/stahnma/puppet-module-epel.git"
+    epel: "https://github.com/stahnma/puppet-module-epel.git"
   symlinks:
     razorsedge: "#{source_dir}"
