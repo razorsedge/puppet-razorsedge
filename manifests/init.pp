@@ -8,6 +8,10 @@
 #   Ensure if present or absent.
 #   Default: present
 #
+# [*enable_test*]
+#   Enable the RE-test repo.
+#   Default: false
+#
 # [*yum_server*]
 #   URI of the YUM server.
 #   Default: http://rpm.razorsedge.org
@@ -58,6 +62,7 @@
 #
 class razorsedge (
   $ensure         = $razorsedge::params::ensure,
+  $enable_test    = $razorsedge::params::safe_enable_test,
   $yum_server     = $razorsedge::params::yum_server,
   $yum_path       = $razorsedge::params::yum_path,
   $priority       = $razorsedge::params::yum_priority,
@@ -66,23 +71,30 @@ class razorsedge (
   $proxy_username = $razorsedge::params::proxy_username,
   $proxy_password = $razorsedge::params::proxy_password
 ) inherits razorsedge::params {
+  validate_bool($enable_test)
+
   case $ensure {
     /(present)|(latest)/: {
-      $enabled = '1'
+      $enabled_re = '1'
       $file_ensure = 'present'
     }
     /(absent)/: {
-      $enabled = '0'
+      $enabled_re = '0'
       $file_ensure = 'absent'
     }
     default: {
       fail('ensure parameter must be present or absent')
     }
   }
+  if $enable_test {
+    $enabled_re_test = '1'
+  } else {
+    $enabled_re_test = '0'
+  }
 
   yumrepo { 'RE':
     descr          => 'RazorsEdge RPM Repository',
-    enabled        => $enabled,
+    enabled        => $enabled_re,
     gpgcheck       => '1',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
     baseurl        => "${yum_server}${yum_path}/RE/",
@@ -95,7 +107,7 @@ class razorsedge (
 
   yumrepo { 'RE-test':
     descr          => 'RazorsEdge Test RPM Repository',
-    enabled        => '0',
+    enabled        => $enabled_re_test,
     gpgcheck       => '1',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
     baseurl        => "${yum_server}${yum_path}/RE-test/",

@@ -9,6 +9,10 @@
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
   "dependencies": [
     {
+      "name": "puppetlabs/stdlib"
+      "version_requirement": ">=2.3.0"
+    },
+    {
       "name": "treydock/gpg_key",
       "version_requirement": ">=0.0.3"
     }

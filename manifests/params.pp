@@ -21,6 +21,16 @@ class razorsedge::params {
     default => $::razorsedge_ensure,
   }
 
+  $enable_test = $::razorsedge_enable_test ? {
+    undef => false,
+    default => $::razorsedge_enable_test,
+  }
+  if is_string($enable_test) {
+    $safe_enable_test = str2bool($enable_test)
+  } else {
+    $safe_enable_test = $enable_test
+  }
+
   $yum_server = $::razorsedge_yum_server ? {
     undef   => 'http://rpm.razorsedge.org',
     default => $::razorsedge_yum_server,

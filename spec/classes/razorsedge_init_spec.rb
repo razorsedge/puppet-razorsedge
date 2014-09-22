@@ -199,6 +199,15 @@ describe 'razorsedge', :type => 'class' do
         :proxy_password => 'myPassword'
       )}
     end
+
+    describe 'enable_test => true' do
+      let :params do {
+        :enable_test => true
+      }
+      end
+      it { should contain_yumrepo('RE').with_enabled('1') }
+      it { should contain_yumrepo('RE-test').with_enabled('1') }
+    end
   end
 
 end
