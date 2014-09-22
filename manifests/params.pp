@@ -21,6 +21,11 @@ class razorsedge::params {
     default => $::razorsedge_ensure,
   }
 
+  $yum_server = $::razorsedge_yum_server ? {
+    undef   => 'http://rpm.razorsedge.org',
+    default => $::razorsedge_yum_server,
+  }
+
   $yum_priority = $::razorsedge_yum_priority ? {
     undef => '50',
     default => $::razorsedge_yum_priority,
@@ -54,5 +59,13 @@ class razorsedge::params {
     $majdistrelease = $::os_maj_version
   } else {
     $majdistrelease = regsubst($::operatingsystemrelease,'^(\d+)\.(\d+)','\1')
+  }
+
+  if $::osfamily == 'RedHat' and $::operatingsystem != 'Fedora' {
+    $yum_path = "/el-${majdistrelease}"
+  } elsif $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
+    $yum_path = "/fedora-${::operatingsystemrelease}"
+  } else {
+    notice("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")
   }
 }

@@ -8,6 +8,16 @@
 #   Ensure if present or absent.
 #   Default: present
 #
+# [*yum_server*]
+#   URI of the YUM server.
+#   Default: http://rpm.razorsedge.org
+#
+# [*yum_path*]
+#   The path to add to the $yum_server URI.
+#   Only set this if your platform is not supported or you know what you are
+#   doing.
+#   Default: auto-set, platform specific
+#
 # [*priority*]
 #   Give packages in this YUM repository a different weight.  Requires
 #   yum-plugin-priorities to be installed.
@@ -48,6 +58,8 @@
 #
 class razorsedge (
   $ensure         = $razorsedge::params::ensure,
+  $yum_server     = $razorsedge::params::yum_server,
+  $yum_path       = $razorsedge::params::yum_path,
   $priority       = $razorsedge::params::yum_priority,
   $protect        = $razorsedge::params::yum_protect,
   $proxy          = $razorsedge::params::proxy,
@@ -68,114 +80,56 @@ class razorsedge (
     }
   }
 
-  if $::osfamily == 'RedHat' and $::operatingsystem != 'Fedora' {
-    yumrepo { 'RE':
-      descr          => 'RazorsEdge RPM Repository',
-      enabled        => $enabled,
-      gpgcheck       => '1',
-      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/el-${::razorsedge::params::majdistrelease}/RE/",
-      priority       => $priority,
-      protect        => $protect,
-      proxy          => $proxy,
-      proxy_username => $proxy_username,
-      proxy_password => $proxy_password,
-    }
-
-    yumrepo { 'RE-test':
-      descr          => 'RazorsEdge Test RPM Repository',
-      enabled        => '0',
-      gpgcheck       => '1',
-      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/el-${::razorsedge::params::majdistrelease}/RE-test/",
-      priority       => $priority,
-      protect        => $protect,
-      proxy          => $proxy,
-      proxy_username => $proxy_username,
-      proxy_password => $proxy_password,
-    }
-
-    file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
-    }
-
-    file { '/etc/yum.repos.d/RE.repo':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-    }
-
-    file { '/etc/yum.repos.d/RE-test.repo':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-    }
-
-    gpg_key { 'RE':
-      path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      before => [ Yumrepo['RE'], Yumrepo['RE-test'], ],
-    }
-  } elsif $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
-    yumrepo { 'RE':
-      descr          => 'RazorsEdge RPM Repository',
-      enabled        => $enabled,
-      gpgcheck       => '1',
-      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/fedora-${::operatingsystemrelease}/RE/",
-      priority       => $priority,
-      protect        => $protect,
-      proxy          => $proxy,
-      proxy_username => $proxy_username,
-      proxy_password => $proxy_password,
-    }
-
-    yumrepo { 'RE-test':
-      descr          => 'RazorsEdge Test RPM Repository',
-      enabled        => '0',
-      gpgcheck       => '1',
-      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/fedora-${::operatingsystemrelease}/RE-test/",
-      priority       => $priority,
-      protect        => $protect,
-      proxy          => $proxy,
-      proxy_username => $proxy_username,
-      proxy_password => $proxy_password,
-    }
-
-    file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
-    }
-
-    file { '/etc/yum.repos.d/RE.repo':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-    }
-
-    file { '/etc/yum.repos.d/RE-test.repo':
-      ensure => $file_ensure,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-    }
-
-    gpg_key { 'RE':
-      path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      before => [ Yumrepo['RE'], Yumrepo['RE-test'], ],
-    }
-  } else {
-      notice("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")
+  yumrepo { 'RE':
+    descr          => 'RazorsEdge RPM Repository',
+    enabled        => $enabled,
+    gpgcheck       => '1',
+    gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    baseurl        => "${yum_server}${yum_path}/RE/",
+    priority       => $priority,
+    protect        => $protect,
+    proxy          => $proxy,
+    proxy_username => $proxy_username,
+    proxy_password => $proxy_password,
   }
 
+  yumrepo { 'RE-test':
+    descr          => 'RazorsEdge Test RPM Repository',
+    enabled        => '0',
+    gpgcheck       => '1',
+    gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    baseurl        => "${yum_server}${yum_path}/RE-test/",
+    priority       => $priority,
+    protect        => $protect,
+    proxy          => $proxy,
+    proxy_username => $proxy_username,
+    proxy_password => $proxy_password,
+  }
+
+  file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge':
+    ensure => $file_ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
+  }
+
+  file { '/etc/yum.repos.d/RE.repo':
+    ensure => $file_ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  file { '/etc/yum.repos.d/RE-test.repo':
+    ensure => $file_ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  gpg_key { 'RE':
+    path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    before => [ Yumrepo['RE'], Yumrepo['RE-test'], ],
+  }
 }
