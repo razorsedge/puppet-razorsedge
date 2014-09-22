@@ -115,15 +115,9 @@ describe 'razorsedge', :type => 'class' do
         :ensure => 'absent'
       }
       end
-      it { should contain_yumrepo('RE').with(
-        :enabled        => '0',
-        :baseurl        => 'http://rpm.razorsedge.org/el-6/RE/',
-        :priority       => '50',
-        :protect        => '0',
-        :proxy          => 'absent',
-        :proxy_username => 'absent',
-        :proxy_password => 'absent'
-      )}
+      it { should contain_yumrepo('RE').with_enabled('0') }
+      it { should contain_file('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge').with_ensure('absent') }
+      it { should contain_file('/etc/yum.repos.d/RE.repo').with_ensure('absent') }
     end
 
     describe 'priority => 999' do

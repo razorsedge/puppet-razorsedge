@@ -57,9 +57,11 @@ class razorsedge (
   case $ensure {
     /(present)/: {
       $enabled = '1'
+      $file_ensure = 'present'
     }
     /(absent)/: {
       $enabled = '0'
+      $file_ensure = 'absent'
     }
     default: {
       fail('ensure parameter must be present or absent')
@@ -94,11 +96,25 @@ class razorsedge (
     }
 
     file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge':
-      ensure => present,
+      ensure => $file_ensure,
       owner  => 'root',
       group  => 'root',
       mode   => '0644',
       source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
+    }
+
+    file { '/etc/yum.repos.d/RE.repo':
+      ensure => $file_ensure,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+    }
+
+    file { '/etc/yum.repos.d/RE-test.repo':
+      ensure => $file_ensure,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
     }
 
     epel::rpm_gpg_key { 'RE':
@@ -132,11 +148,25 @@ class razorsedge (
     }
 
     file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge':
-      ensure => present,
+      ensure => $file_ensure,
       owner  => 'root',
       group  => 'root',
       mode   => '0644',
       source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge',
+    }
+
+    file { '/etc/yum.repos.d/RE.repo':
+      ensure => $file_ensure,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+    }
+
+    file { '/etc/yum.repos.d/RE-test.repo':
+      ensure => $file_ensure,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
     }
 
     epel::rpm_gpg_key { 'RE':
