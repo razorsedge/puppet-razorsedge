@@ -32,7 +32,7 @@
 #
 # === Requires:
 #
-#  Define['epel::rpm_gpg_key']
+#  gpg_key provider
 #
 # === Sample Usage:
 #
@@ -117,8 +117,9 @@ class razorsedge (
       mode   => '0644',
     }
 
-    epel::rpm_gpg_key { 'RE':
-      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    gpg_key { 'RE':
+      path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+      before => [ Yumrepo['RE'], Yumrepo['RE-test'], ],
     }
   } elsif $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
     yumrepo { 'RE':
@@ -169,8 +170,9 @@ class razorsedge (
       mode   => '0644',
     }
 
-    epel::rpm_gpg_key { 'RE':
-      path => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+    gpg_key { 'RE':
+      path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
+      before => [ Yumrepo['RE'], Yumrepo['RE-test'], ],
     }
   } else {
       notice("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")

@@ -9,7 +9,7 @@
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
   "dependencies": [
     {
-      "name": "stahnma/epel",
+      "name": "treydock/gpg_key",
       "version_requirement": ">=0.0.3"
     }
   ],

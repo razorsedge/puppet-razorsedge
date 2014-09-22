@@ -57,7 +57,7 @@ describe 'razorsedge', :type => 'class' do
       :mode   => '0644',
       :source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge'
     )}
-    it { should contain_epel__rpm_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
+    it { should contain_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
   end
 
   context 'on a supported operatingsystem, Fedora, default parameters' do
@@ -99,7 +99,7 @@ describe 'razorsedge', :type => 'class' do
       :mode   => '0644',
       :source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge'
     )}
-    it { should contain_epel__rpm_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
+    it { should contain_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
   end
 
   context 'on a supported operatingsystem, custom parameters' do
