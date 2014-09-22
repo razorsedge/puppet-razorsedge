@@ -55,7 +55,7 @@ class razorsedge (
   $proxy_password = $razorsedge::params::proxy_password
 ) inherits razorsedge::params {
   case $ensure {
-    /(present)/: {
+    /(present)|(latest)/: {
       $enabled = '1'
       $file_ensure = 'present'
     }
@@ -74,7 +74,7 @@ class razorsedge (
       enabled        => $enabled,
       gpgcheck       => '1',
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/el-${::os_maj_version}/RE/",
+      baseurl        => "http://rpm.razorsedge.org/el-${::razorsedge::params::majdistrelease}/RE/",
       priority       => $priority,
       protect        => $protect,
       proxy          => $proxy,
@@ -87,7 +87,7 @@ class razorsedge (
       enabled        => '0',
       gpgcheck       => '1',
       gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-      baseurl        => "http://rpm.razorsedge.org/el-${::os_maj_version}/RE-test/",
+      baseurl        => "http://rpm.razorsedge.org/el-${::razorsedge::params::majdistrelease}/RE-test/",
       priority       => $priority,
       protect        => $protect,
       proxy          => $proxy,
