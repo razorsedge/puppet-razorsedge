@@ -21,6 +21,21 @@ class razorsedge::params {
     default => $::razorsedge_ensure,
   }
 
+  $enable_test = $::razorsedge_enable_test ? {
+    undef => false,
+    default => $::razorsedge_enable_test,
+  }
+  if is_string($enable_test) {
+    $safe_enable_test = str2bool($enable_test)
+  } else {
+    $safe_enable_test = $enable_test
+  }
+
+  $reposerver = $::razorsedge_reposerver ? {
+    undef   => 'http://rpm.razorsedge.org',
+    default => $::razorsedge_reposerver,
+  }
+
   $yum_priority = $::razorsedge_yum_priority ? {
     undef => '50',
     default => $::razorsedge_yum_priority,
@@ -44,5 +59,23 @@ class razorsedge::params {
   $proxy_password = $::razorsedge_proxy_password ? {
     undef => 'absent',
     default => $::razorsedge_proxy_password,
+  }
+
+  if $::operatingsystemmajrelease { # facter 1.7+
+    $majdistrelease = $::operatingsystemmajrelease
+  } elsif $::lsbmajdistrelease {    # requires LSB to already be installed
+    $majdistrelease = $::lsbmajdistrelease
+  } elsif $::os_maj_version {       # requires stahnma/epel
+    $majdistrelease = $::os_maj_version
+  } else {
+    $majdistrelease = regsubst($::operatingsystemrelease,'^(\d+)\.(\d+)','\1')
+  }
+
+  if $::osfamily == 'RedHat' and $::operatingsystem != 'Fedora' {
+    $repopath = "/el-${majdistrelease}"
+  } elsif $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
+    $repopath = "/fedora-${::operatingsystemrelease}"
+  } else {
+    notice("Your operating system ${::operatingsystem} will not have the RazorsEdge repository applied.")
   }
 }

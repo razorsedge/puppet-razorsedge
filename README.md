@@ -1,5 +1,5 @@
-Configure RazorsEdge Repository
-===============================
+Configure RazorsEdge YUM Repository
+===================================
 
 master branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=master)](http://travis-ci.org/razorsedge/puppet-razorsedge)
 develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-razorsedge.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-razorsedge)
@@ -11,37 +11,80 @@ This module mimics the razorsedge-release RPM from the [Razor's Edge RPM Reposit
 
 Actions:
 
-* The following Repos will be setup and enabled by default:
+The following Repos will be installed and enabled by default:
+* RE
 
-    RE
-
-* Other repositories that will setup but disabled (as per the razorsedge-release setup):
-
-    RE-testing
+Other repositories that will installed but disabled (as per the razorsedge-release setup):
+* RE-testing
 
 OS Support:
 
-* RedHat family - tested on CentOS 5.9 and CentOS 6.3
+* RedHat family - tested on Fedora 16, CentOS 5.9, and CentOS 6.3
 
 Class documentation is available via puppetdoc.
 
 Examples
 --------
 
-```puppet
-include 'razorsedge'
-```
+Simple usage:
 
 ```puppet
-class { 'razorsedge':
-  ensure         => 'present',
-  priority       => '50',
-  protect        => '0',
-  proxy          => 'absent',
-  proxy_username => 'absent',
-  proxy_password => 'absent',
+include '::razorsedge'
+```
+
+Customized usage:
+
+```puppet
+class { '::razorsedge':
+  ensure      => 'present',
+  enable_test => true,
 }
 ```
+
+Parameters
+----------
+The following parameters are available in this module:
+
+####`ensure`
+
+Enable the RE repository.
+Default: present
+
+####`enable_test`
+
+Enable the RE-test repository.
+Default: false
+
+####`reposerver`
+
+URI of the YUM server.
+Default: http://rpm.razorsedge.org
+
+####`priority`
+
+Give packages in this YUM repository a different weight.  Requires yum-plugin-priorities to be installed.
+Default: 50
+
+####`protect`
+
+Protect packages in this YUM repository from being overridden by packages in non-protected repositories.
+Default: 0
+
+####`proxy`
+
+The URL to the proxy server for these repositories.
+Default: absent
+
+####`proxy_username`
+
+The username for the proxy.
+Default: absent
+
+####`proxy_password`
+
+The password for the proxy.
+Default: absent
+
 
 Notes
 -----
@@ -57,6 +100,11 @@ TODO
 ----
 
 * None
+
+Contributing
+------------
+
+Please see DEVELOP.md for contribution information.
 
 License
 -------

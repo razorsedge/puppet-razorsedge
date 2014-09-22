@@ -1,5 +1,6 @@
 fixtures:
   repositories:
-    epel: git://github.com/stahnma/puppet-module-epel.git
+    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    gpg_key: "https://github.com/treydock/puppet-gpg_key.git"
   symlinks:
     razorsedge: "#{source_dir}"

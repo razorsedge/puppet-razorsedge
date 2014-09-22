@@ -57,7 +57,7 @@ describe 'razorsedge', :type => 'class' do
       :mode   => '0644',
       :source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge'
     )}
-    it { should contain_epel__rpm_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
+    it { should contain_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
   end
 
   context 'on a supported operatingsystem, Fedora, default parameters' do
@@ -99,7 +99,7 @@ describe 'razorsedge', :type => 'class' do
       :mode   => '0644',
       :source => 'puppet:///modules/razorsedge/RPM-GPG-KEY-razorsedge'
     )}
-    it { should contain_epel__rpm_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
+    it { should contain_gpg_key('RE').with_path('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge') }
   end
 
   context 'on a supported operatingsystem, custom parameters' do
@@ -115,15 +115,9 @@ describe 'razorsedge', :type => 'class' do
         :ensure => 'absent'
       }
       end
-      it { should contain_yumrepo('RE').with(
-        :enabled        => '0',
-        :baseurl        => 'http://rpm.razorsedge.org/el-6/RE/',
-        :priority       => '50',
-        :protect        => '0',
-        :proxy          => 'absent',
-        :proxy_username => 'absent',
-        :proxy_password => 'absent'
-      )}
+      it { should contain_yumrepo('RE').with_enabled('0') }
+      it { should contain_file('/etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge').with_ensure('absent') }
+      it { should contain_file('/etc/yum.repos.d/RE.repo').with_ensure('absent') }
     end
 
     describe 'priority => 999' do
@@ -204,6 +198,15 @@ describe 'razorsedge', :type => 'class' do
         :proxy_username => 'absent',
         :proxy_password => 'myPassword'
       )}
+    end
+
+    describe 'enable_test => true' do
+      let :params do {
+        :enable_test => true
+      }
+      end
+      it { should contain_yumrepo('RE').with_enabled('1') }
+      it { should contain_yumrepo('RE-test').with_enabled('1') }
     end
   end
 
