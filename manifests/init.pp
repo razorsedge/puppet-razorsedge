@@ -12,12 +12,12 @@
 #   Enable the RE-test repo.
 #   Default: false
 #
-# [*yum_server*]
+# [*reposerver*]
 #   URI of the YUM server.
 #   Default: http://rpm.razorsedge.org
 #
-# [*yum_path*]
-#   The path to add to the $yum_server URI.
+# [*repopath*]
+#   The path to add to the $reposerver URI.
 #   Only set this if your platform is not supported or you know what you are
 #   doing.
 #   Default: auto-set, platform specific
@@ -63,8 +63,8 @@
 class razorsedge (
   $ensure         = $razorsedge::params::ensure,
   $enable_test    = $razorsedge::params::safe_enable_test,
-  $yum_server     = $razorsedge::params::yum_server,
-  $yum_path       = $razorsedge::params::yum_path,
+  $reposerver     = $razorsedge::params::reposerver,
+  $repopath       = $razorsedge::params::repopath,
   $priority       = $razorsedge::params::yum_priority,
   $protect        = $razorsedge::params::yum_protect,
   $proxy          = $razorsedge::params::proxy,
@@ -97,7 +97,7 @@ class razorsedge (
     enabled        => $enabled_re,
     gpgcheck       => '1',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-    baseurl        => "${yum_server}${yum_path}/RE/",
+    baseurl        => "${reposerver}${repopath}/RE/",
     priority       => $priority,
     protect        => $protect,
     proxy          => $proxy,
@@ -110,7 +110,7 @@ class razorsedge (
     enabled        => $enabled_re_test,
     gpgcheck       => '1',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-razorsedge',
-    baseurl        => "${yum_server}${yum_path}/RE-test/",
+    baseurl        => "${reposerver}${repopath}/RE-test/",
     priority       => $priority,
     protect        => $protect,
     proxy          => $proxy,
