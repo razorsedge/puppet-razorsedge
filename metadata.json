@@ -6,6 +6,7 @@
   "license": "Apache License, Version 2.0",
   "project_page": "https://github.com/razorsedge/puppet-razorsedge",
   "issues_url": "https://github.com/razorsedge/puppet-razorsedge/issues",
+  "tags": [ "RHEL", "rhel", "OEL", "CentOS", "repository", "RPM", "yum" ],
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
   "dependencies": [
     {
