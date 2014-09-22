@@ -3,13 +3,13 @@
   "version": "2.0.0",
   "author": "razorsedge",
   "summary": "Install the RazorsEdge YUM Repository",
-  "license": "Apache License, Version 2.0"
+  "license": "Apache License, Version 2.0",
   "project_page": "https://github.com/razorsedge/puppet-razorsedge",
   "issues_url": "https://github.com/razorsedge/puppet-razorsedge/issues",
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
   "dependencies": [
     {
-      "name": "puppetlabs/stdlib"
+      "name": "puppetlabs/stdlib",
       "version_requirement": ">=2.3.0"
     },
     {
