@@ -3,15 +3,15 @@
   "version": "2.0.1",
   "author": "razorsedge",
   "summary": "Install the RazorsEdge YUM Repository",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "project_page": "https://github.com/razorsedge/puppet-razorsedge",
   "issues_url": "https://github.com/razorsedge/puppet-razorsedge/issues",
-  "tags": [ "RHEL", "rhel", "OEL", "CentOS", "repository", "RPM", "yum" ],
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
+  "tags": [ "RHEL", "rhel", "OEL", "CentOS", "repository", "RPM", "yum" ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=2.3.0"
+      "version_requirement": ">=2.3.0 <5.0.0"
     },
     {
       "name": "treydock/gpg_key",
