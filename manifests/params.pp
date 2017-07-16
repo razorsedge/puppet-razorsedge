@@ -16,14 +16,18 @@
 class razorsedge::params {
   # If we have a top scope variable defined, use it, otherwise fall back to a
   # hardcoded value.
-  $ensure = $::razorsedge_ensure ? {
-    undef => 'present',
-    default => $::razorsedge_ensure,
+  $razorsedge_ensure = getvar('::razorsedge_ensure')
+  if $razorsedge_ensure {
+    $ensure = $::razorsedge_ensure
+  } else {
+    $ensure = 'present'
   }
 
-  $enable_test = $::razorsedge_enable_test ? {
-    undef => false,
-    default => $::razorsedge_enable_test,
+  $razorsedge_enable_test = getvar('::razorsedge_enable_test')
+  if $razorsedge_enable_test {
+    $enable_test = $::razorsedge_enable_test
+  } else {
+    $enable_test = false
   }
   if is_string($enable_test) {
     $safe_enable_test = str2bool($enable_test)
@@ -31,34 +35,46 @@ class razorsedge::params {
     $safe_enable_test = $enable_test
   }
 
-  $reposerver = $::razorsedge_reposerver ? {
-    undef   => 'http://rpm.razorsedge.org',
-    default => $::razorsedge_reposerver,
+  $razorsedge_reposerver = getvar('::razorsedge_reposerver')
+  if $razorsedge_reposerver {
+    $reposerver = $::razorsedge_reposerver
+  } else {
+    $reposerver = 'http://rpm.razorsedge.org'
   }
 
-  $yum_priority = $::razorsedge_yum_priority ? {
-    undef => '50',
-    default => $::razorsedge_yum_priority,
+  $razorsedge_yum_priority = getvar('::razorsedge_yum_priority')
+  if $razorsedge_yum_priority {
+    $yum_priority = $::razorsedge_yum_priority
+  } else {
+    $yum_priority = '50'
   }
 
-  $yum_protect = $::razorsedge_yum_protect ? {
-    undef => '0',
-    default => $::razorsedge_yum_protect,
+  $razorsedge_yum_protect = getvar('::razorsedge_yum_protect')
+  if $razorsedge_yum_protect {
+    $yum_protect = $::razorsedge_yum_protect
+  } else {
+    $yum_protect = '0'
   }
 
-  $proxy = $::razorsedge_proxy ? {
-    undef => 'absent',
-    default => $::razorsedge_proxy,
+  $razorsedge_proxy = getvar('::razorsedge_proxy')
+  if $razorsedge_proxy {
+    $proxy = $::razorsedge_proxy
+  } else {
+    $proxy = 'absent'
   }
 
-  $proxy_username = $::razorsedge_proxy_username ? {
-    undef => 'absent',
-    default => $::razorsedge_proxy_username,
+  $razorsedge_proxy_username = getvar('::razorsedge_proxy_username')
+  if $razorsedge_proxy_username {
+    $proxy_username = $::razorsedge_proxy_username
+  } else {
+    $proxy_username = 'absent'
   }
 
-  $proxy_password = $::razorsedge_proxy_password ? {
-    undef => 'absent',
-    default => $::razorsedge_proxy_password,
+  $razorsedge_proxy_password = getvar('::razorsedge_proxy_password')
+  if $razorsedge_proxy_password {
+    $proxy_password = $::razorsedge_proxy_password
+  } else {
+    $proxy_password = 'absent'
   }
 
   if $::operatingsystemmajrelease { # facter 1.7+

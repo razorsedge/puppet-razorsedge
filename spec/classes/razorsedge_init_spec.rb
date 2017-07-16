@@ -7,7 +7,9 @@ describe 'razorsedge', :type => 'class' do
   context 'on a non-supported operatingsystem' do
     let :facts do {
       :osfamily        => 'foo',
-      :operatingsystem => 'bar'
+      :operatingsystem => 'bar',
+      :operatingsystemrelease => '1',
+      :operatingsystemmajrelease => '1'
     }
     end
     #it { should contain_notice('Your operating system bar will not have the RazorsEdge repository applied.') }
@@ -23,7 +25,8 @@ describe 'razorsedge', :type => 'class' do
     let :facts do {
       :osfamily        => 'RedHat',
       :operatingsystem => 'CentOS',
-      :os_maj_version  => '6'
+      :operatingsystemrelease => '6.0',
+      :operatingsystemmajrelease => '6'
     }
     end
     it { should contain_yumrepo('RE').with(
@@ -65,7 +68,8 @@ describe 'razorsedge', :type => 'class' do
     let :facts do {
       :osfamily               => 'RedHat',
       :operatingsystem        => 'Fedora',
-      :operatingsystemrelease => '18'
+      :operatingsystemrelease => '18',
+      :operatingsystemmajrelease => '18'
     }
     end
     it { should contain_yumrepo('RE').with(
@@ -106,7 +110,8 @@ describe 'razorsedge', :type => 'class' do
     let :facts do {
       :osfamily        => 'RedHat',
       :operatingsystem => 'CentOS',
-      :os_maj_version  => '6'
+      :operatingsystemrelease => '6.0',
+      :operatingsystemmajrelease => '6'
     }
     end
 
