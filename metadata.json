@@ -1,20 +1,21 @@
 {
   "name": "razorsedge-razorsedge",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "razorsedge",
   "summary": "Install the RazorsEdge YUM Repository",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "project_page": "https://github.com/razorsedge/puppet-razorsedge",
   "issues_url": "https://github.com/razorsedge/puppet-razorsedge/issues",
   "source": "https://github.com/razorsedge/puppet-razorsedge.git",
+  "tags": [ "RHEL", "rhel", "OEL", "CentOS", "repository", "RPM", "yum" ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=2.3.0"
+      "version_requirement": ">=2.3.0 <5.0.0"
     },
     {
       "name": "treydock/gpg_key",
-      "version_requirement": ">=0.0.3"
+      "version_requirement": ">=0.0.3 <1.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -32,17 +33,13 @@
     },
     {
       "operatingsystem": "Fedora",
-      "operatingsystemrelease": [ "18", "19", "20" ]
+      "operatingsystemrelease": [ "18", "19", "20", "21", "22", "23", "24", "25", "26" ]
     }
   ],
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": "3.x"
-    },
-    {
       "name": "puppet",
-      "version_requirement": ">=2.7.20 <4.0.0"
+      "version_requirement": ">=2.7.20 <5.0.0"
     }
   ]
 }

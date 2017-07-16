@@ -45,42 +45,42 @@ Parameters
 ----------
 The following parameters are available in this module:
 
-####`ensure`
+#### `ensure`
 
 Enable the RE repository.
 Default: present
 
-####`enable_test`
+#### `enable_test`
 
 Enable the RE-test repository.
 Default: false
 
-####`reposerver`
+#### `reposerver`
 
 URI of the YUM server.
 Default: http://rpm.razorsedge.org
 
-####`priority`
+#### `priority`
 
 Give packages in this YUM repository a different weight.  Requires yum-plugin-priorities to be installed.
 Default: 50
 
-####`protect`
+#### `protect`
 
 Protect packages in this YUM repository from being overridden by packages in non-protected repositories.
 Default: 0
 
-####`proxy`
+#### `proxy`
 
 The URL to the proxy server for these repositories.
 Default: absent
 
-####`proxy_username`
+#### `proxy_username`
 
 The username for the proxy.
 Default: absent
 
-####`proxy_password`
+#### `proxy_password`
 
 The password for the proxy.
 Default: absent
@@ -104,7 +104,7 @@ TODO
 Contributing
 ------------
 
-Please see DEVELOP.md for contribution information.
+Please see CONTRIBUTING.md for contribution information.
 
 License
 -------
